@@ -7,7 +7,11 @@ module Formtastic
       ret = ''
       self.semantic_fields_for "#{name}_translations", field do |lf|
         ::ActiveAdmin::Mongoid::Localize.locales.each do |locale|
-          args[:input_html].merge!({ :value => (t.nil? || t[locale.to_s].nil?) ? '' : t[locale.to_s] })
+          if args[:input_html].blank? do
+            args[:input_html]=({ :value => (t.nil? || t[locale.to_s].nil?) ? '' : t[locale.to_s] })
+          else
+            args[:input_html].merge!({ :value => (t.nil? || t[locale.to_s].nil?) ? '' : t[locale.to_s] })
+          end
           flag_code = locale.to_s.include?("-") ? locale.to_s.split("-")[1].downcase : locale.to_s
 
           # stupid fix to be removed
