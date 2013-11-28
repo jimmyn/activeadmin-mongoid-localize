@@ -7,7 +7,7 @@ module Formtastic
       ret = ''
       self.semantic_fields_for "#{name}_translations", field do |lf|
         ::ActiveAdmin::Mongoid::Localize.locales.each do |locale|
-          if args[:input_html].blank? do
+          if args[:input_html].blank? 
             args[:input_html]=({ :value => (t.nil? || t[locale.to_s].nil?) ? '' : t[locale.to_s] })
           else
             args[:input_html].merge!({ :value => (t.nil? || t[locale.to_s].nil?) ? '' : t[locale.to_s] })
